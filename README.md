@@ -19,11 +19,11 @@
 
 **사용법**
 
-'''javascript
+```javascript
 
 $("textarea").fxTextAreaAutoResizer({
   minLine : 1,
   maxLine : 10
 });
 
-'''
+```
