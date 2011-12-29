@@ -75,7 +75,7 @@
 		},
 		_checkEnter : function( event ) {
 			if ( event.keyCode === __.KEY_ENTER)  {
-				if ( this._trigger( event.shiftKey ? "onshiftenter" : "onenter", sInput) === false ) {
+				if ( this._trigger( event.shiftKey ? "onshiftenter" : "onenter", this.element.val() ) === false ) {
 					event.preventDefault();
 					return false;
 				}
@@ -100,11 +100,11 @@
 				};
 				setTimeout(fn, 0);
 			}
-			this._trigger("onfocus");
+			this._trigger("onfocus", this.element.val() );
 		},
 		_onblur : function(event) {
 			this._bRunChecker = false;
-			this._trigger("onblur");
+			this._trigger("onblur", this.element.val() );
 		},
 		getValue : function() {
 			return this.element.val();
@@ -121,7 +121,7 @@
 		reset : function() {
 			this.element.val("");
 			this._adjustHeight("");
-			this._trigger("onblur");
+			//this._trigger("onblur", "" );
 		},
 		destroy : function() {
 			$.Widget.prototype.destroy.call(this);

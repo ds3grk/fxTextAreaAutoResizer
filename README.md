@@ -27,3 +27,9 @@ $("textarea").fxTextAreaAutoResizer({
 });
 
 ```
+
+---
+
+* 입력값에 따른 height의 떨림을 없애기 위해 최소의 preventShake 값을 추가함.
+* 이로 인해 최소 한 줄의 여유공간이 생기기 때문에 keydown에서 height를 체크 할 이유가 없어짐.
+* scrollHeight 보다 
