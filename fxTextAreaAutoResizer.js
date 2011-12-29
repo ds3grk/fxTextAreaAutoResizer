@@ -59,6 +59,7 @@
 				.bind("blur." + __.NAME, $.proxy(this._onblur, this));
 		},
 		_onkeydown : function(event) {
+			this._adjustHeight( this.element.val() );
 			this._checkEnter( event );
 		},
 		_onkeyup : function(event) {
@@ -94,7 +95,7 @@
 				this._bRunChecker = true;
 				var fn = function() {
 					self._adjustHeight( self.element.val() );
-					if ( self.bRunTimeout ) {
+					if ( self._bRunChecker ) {
 						setTimeout(arguments.callee, 0);
 					}
 				};
