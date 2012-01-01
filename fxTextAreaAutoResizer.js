@@ -12,6 +12,7 @@
 			onenter 		: function() {},
 			onfocus 		: function() {},
 			onblur 		: function() {},
+			animation	: true,
 			shadowId  	: "shadowTextArea",
 			minLine 		: 1,
 			maxLine 		: 5,
@@ -68,9 +69,14 @@
 		_adjustHeight : function( sText ) {
 			var nNewHeight = this._shadow.val( sText ).height(0).scrollTop(20000).scrollTop() + this._nPreventShake;
 			if ( this._nHeight !== nNewHeight ) {
-				this.element.css( "overflow-y", nNewHeight >= this._nMaxHeight ? "scroll" : "hidden" ).animate(  { 
-					"height" : Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) ) 
-				}, 100 );
+				this.element.css( "overflow-y", nNewHeight >= this._nMaxHeight ? "scroll" : "hidden" );
+				if ( this.option("animation") === true ) {
+					this.element.animate(  { 
+						"height" : Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) ) 
+					}, 100 );
+				} else {
+					this.element.height(  Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) ) );
+				}
 				this._nHeight = nNewHeight;
 			}
 		},
@@ -126,7 +132,7 @@
 		},
 		destroy : function() {
 			$.Widget.prototype.destroy.call(this);
-			if (!$.browser.msie) {
+			if ( typeof this._shadow !== "undefined" ) {
 				this._shadow.remove();
 				this._shadow = null;
 			}
