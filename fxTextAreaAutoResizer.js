@@ -5,6 +5,9 @@
 		MIN_LINE		: "minLine",
 		KEY_ENTER 	: 13
 	};
+	function isUndefined( o ) {
+		return typeof o === "undefined";
+	};
 	
 	$.widget( "jquery." + __.NAME, {
 		options : {
@@ -34,7 +37,7 @@
 			this._initShadow();
 		},
 		_createShadow : function() {
-			if (typeof this._shadow === "undefined") {
+			if ( isUndefined( this._shadow ) ) {
 				this._shadow = $("<textarea>").attr("id", this.option("shadowId") + Math.random(10)).css({
 					lineHeight 	: this.element.css("lineHeight"),
 					height 		: 0,
@@ -48,7 +51,7 @@
 			}
 		},
 		_initShadow : function() {
-			if (typeof this._shadow !== "undefined") {
+			if ( !isUndefined( this._shadow ) ) {
 				this._shadow.css({
 					lineHeight 	: this.element.css("lineHeight"),
 					height 		: 0,
@@ -136,7 +139,7 @@
 		},
 		destroy : function() {
 			$.Widget.prototype.destroy.call(this);
-			if ( typeof this._shadow !== "undefined" ) {
+			if ( !isUndefined( this._shadow ) ) {
 				this._shadow.remove();
 				this._shadow = null;
 			}
