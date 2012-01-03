@@ -11,9 +11,10 @@
 			onshfitenter 	: function() {},
 			onenter 		: function() {},
 			onfocus 		: function() {},
-			onblur 		: function() {},
-			animation	: true,
-			shadowId  	: "shadowTextArea",
+			onblur 			: function() {},
+			oninput			: function() {},
+			animation		: true,
+			shadowId  		: "shadowTextArea",
 			minLine 		: 1,
 			maxLine 		: 5,
 			lineHeight 	: 16
@@ -26,7 +27,7 @@
 		},
 		_init : function() {
 			var nOneLine = parseInt( this.element.css("lineHeight"), 10 );
-			this._nPreventShake = this.option("preventShake") || nOneLine;
+			this._nPreventShake = typeof this.option("preventShake") === "undefined" ? nOneLine : this.option("preventShake");
 			this._nHeight = this._nMinHeight = ( nOneLine || this.option("lineHeight") ) * this.option(__.MIN_LINE) + this._nPreventShake;
 			this._nMaxHeight = ( nOneLine || this.option("lineHeight") ) * this.option(__.MAX_LINE) + this._nPreventShake;
 			this.element.css( "overflow", "hidden" ).val("").height( this._nHeight );
@@ -38,9 +39,11 @@
 					lineHeight 	: this.element.css("lineHeight"),
 					height 		: 0,
 					width 		: this.element.width(),
-					position 		: "absolute",
-					overflow 		: "hidden",
-					left 			: "-10000px"
+					fontSize	: this.element.css("fontSize"),
+					fontFamily	: this.element.css("fontFamily"),
+					position 	: "absolute",
+					overflow 	: "hidden",
+					left 		: "-10000px"
 				}).appendTo($("body"));
 			}
 		},
@@ -64,18 +67,24 @@
 			this._checkEnter( event );
 		},
 		_onkeyup : function(event) {
-			this._adjustHeight( this.element.val() );			
+			this._adjustHeight( this.element.val() );	
+			this._trigger( "oninput", null, this.element.val() );		
 		},
-		_adjustHeight : function( sText ) {
+		_adjustHeight : function( sText, fnComplete ) {
 			var nNewHeight = this._shadow.val( sText ).height(0).scrollTop(20000).scrollTop() + this._nPreventShake;
+			nNewHeight = Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) );
 			if ( this._nHeight !== nNewHeight ) {
-				this.element.css( "overflow-y", nNewHeight >= this._nMaxHeight ? "scroll" : "hidden" );
+				var sType = nNewHeight >= this._nMaxHeight ? "scroll" : "hidden";
+				if ( this.element.css( "overflow-y" ) !== sType ) {
+					this.element.css( "overflow-y", sType );
+				}				
+				
 				if ( this.option("animation") === true ) {
-					this.element.animate(  { 
-						"height" : Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) ) 
-					}, 100 );
+					this.element.animate(  {
+						"height" : nNewHeight
+					}, 100, fnComplete || function() {} );
 				} else {
-					this.element.height(  Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) ) );
+					this.element.height( nNewHeight );
 				}
 				this._nHeight = nNewHeight;
 			}
@@ -92,11 +101,6 @@
 			this._createShadow();
 			
 			var self = this;
-			/*
-			if (!$.browser.msie) {
-				this._shadow.css("width", this.element.width());
-			}
-			*/
 			if ($.browser.mozilla) {
 				this._bRunChecker = true;
 				var fn = function() {
