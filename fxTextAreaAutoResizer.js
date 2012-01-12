@@ -42,6 +42,8 @@
 					lineHeight 	: this.element.css("lineHeight"),
 					height 		: 0,
 					width 		: this.element.width(),
+					"min-width" : self.element.width(),
+					"max-width" : self.element.width(),
 					fontSize	: this.element.css("fontSize"),
 					fontFamily	: this.element.css("fontFamily"),
 					position 	: "absolute",
@@ -74,23 +76,29 @@
 			this._trigger( "oninput", null, this.element.val() );		
 		},
 		_adjustHeight : function( sText, fnComplete ) {
-			var nNewHeight = this._shadow.val( sText ).height(0).scrollTop(20000).scrollTop() + this._nPreventShake;
-			nNewHeight = Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) );
-			if ( this._nHeight !== nNewHeight ) {
-				var sType = nNewHeight >= this._nMaxHeight ? "scroll" : "hidden";
-				if ( this.element.css( "overflow-y" ) !== sType ) {
-					this.element.css( "overflow-y", sType );
-				}				
-				
+			if ( typeof this._shadow === "undefined" ) { return; }
+			var nScrollTop = this._shadow.val( sText ).height(0).scrollTop(20000).scrollTop();
+			var nNewHeight = nScrollTop + this._nPreventShake;
+			var nSetHeight = Math.min( this._nMaxHeight, Math.max( this._nMinHeight, nNewHeight ) );
+			
+			if ( nScrollTop > this._nMaxHeight ) {
+				this.element.css( "overflow-y", "scroll" );
+				this._shadow.css("overflow-y", "scroll");
+			} else {
+				this.element.css( "overflow-y", "hidden" );
+				this._shadow.css("overflow-y", "hidden" );
+
+			}
+			if ( this._nHeight != nSetHeight ) {
 				if ( this.option("animation") === true ) {
 					this.element.animate(  {
-						"height" : nNewHeight
+						"height" : nSetHeight
 					}, 100, fnComplete || function() {} );
 				} else {
-					this.element.height( nNewHeight );
+					this.element.height( nSetHeight );
 				}
-				this._nHeight = nNewHeight;
 			}
+			this._nHeight = nSetHeight;
 		},
 		_checkEnter : function( event ) {
 			if ( event.keyCode === __.KEY_ENTER)  {
