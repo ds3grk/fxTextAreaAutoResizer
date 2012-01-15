@@ -33,10 +33,7 @@
         <div class="container">
           <a class="brand" href="http://twitter.github.com/bootstrap">Design & HTML from Bootstrap</a>
           <ul class="nav">
-            <li class="active"><a href="#overview">Overview</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#grid-system">Grid</a></li>
-            <li><a href="#layouts">Layouts</a></li>
+            <li class="active"><a href="#example">예제</a></li>
           </ul>
         </div>
       </div>
@@ -91,7 +88,7 @@
 
 <!-- Grid system
 ================================================== -->
-<section id="grid-system">
+<section id="example">
   <div class="page-header">
     <h1>사용 예제 <small>옵션 사용</small></h1>
   </div>
@@ -101,7 +98,6 @@
       <h2>기본 옵션 사용</h2>
     </div>
     <div class="span12">
-      <h3>기본 옵션 값과 사용 예제</h3>
       <textarea id="sample" style="width:400px"></textarea>
 	  <br/><br/>
 <pre class="prettyprint linenums">
@@ -121,220 +117,43 @@
 
   <div class="row">
     <div class="span4">
-      <h2>Nesting columns</h2>
-      <p>Nest your content if you must by creating a <code>.row</code> within an existing column.</p>
+      <h2>최소height 지정 </h2>
     </div>
     <div class="span12">
-      <h4>Example of nested columns</h4>
-      <div class="row show-grid">
-        <div class="span12">
-          Level 1 of column
-          <div class="row show-grid">
-            <div class="span6">
-              Level 2
-            </div>
-            <div class="span6">
-              Level 2
-            </div>
-          </div>
-        </div>
-      </div>
+      <textarea id="sample2" style="width:400px"></textarea>
+	  <br/><br/>
 <pre class="prettyprint linenums">
-&lt;div class="row"&gt;
-  &lt;div class="span12"&gt;
-    Level 1 of column
-    &lt;div class="row"&gt;
-      &lt;div class="span6"&gt;
-        Level 2
-      &lt;/div&gt;
-      &lt;div class="span6"&gt;
-        Level 2
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
+	$("#sample1").fxTextAreaAutoResizer({
+		minLine 		: 5
+	});
 </pre>
     </div>
   </div>
 
-  <br>
-
   <div class="row">
     <div class="span4">
-      <h2>Roll your own grid</h2>
-      <p>Built into Bootstrap are a handful of variables for customizing the default 940px grid system. With a bit of customization, you can modify the size of columns, their gutters, and the container they reside in.</p>
+      <h2>이벤트 콜백</h2>
     </div>
     <div class="span12">
-      <h3>Inside the grid</h3>
-      <p>The variables needed to modify the grid system currently all reside in <code>variables.less</code>.</p>
-      <table class="bordered-table zebra-striped">
-        <thead>
-          <tr>
-            <th>Variable</th>
-            <th>Default value</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>@gridColumns</code></td>
-            <td>16</td>
-            <td>The number of columns within the grid</td>
-          </tr>
-          <tr>
-            <td><code>@gridColumnWidth</code></td>
-            <td>40px</td>
-            <td>The width of each column within the grid</td>
-          </tr>
-          <tr>
-            <td><code>@gridGutterWidth</code></td>
-            <td>20px</td>
-            <td>The negative space between each column</td>
-          </tr>
-          <tr>
-            <td><code>@siteWidth</code></td>
-            <td><em>Computed sum of all columns and gutters</em></td>
-            <td>We use some basic match to count the number of columns and gutters and set the width of the <code>.fixed-container()</code> mixin.</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>Now to customize</h3>
-      <p>Modifying the grid means changing the three <code>@grid-*</code> variables and recompiling the Less files.</p>
-      <p>Bootstrap comes equipped to handle a grid system with up to 24 columns; the default is just 16. Here's how your grid variables would look customized to a 24-column grid.</p>
-      <pre class="prettyprint linenums">@gridColumns:       24;
-@gridColumnWidth:   20px;
-@gridGutterWidth:   20px;</pre>
-      <p>Once recompiled, you'll be set!</p>
+      <textarea id="sample3" style="width:400px"></textarea>
+	  <br/><br/>
+<pre class="prettyprint linenums">
+	$("#sample1").fxTextAreaAutoResizer({
+		onshifterenter : function() {
+		},
+		onenter : function() {
+		},
+		onfocus : function() {
+		},
+		onblur : function() {
+		},
+		oninput : function() {
+		}
+	});
+</pre>
     </div>
   </div>
-</section>
 
-
-
-
-<!-- Typography
-================================================== -->
-<section id="typography">
-  <div class="page-header">
-    <h1>Typography <small>Headings, paragraphs, lists, and other inline type elements</small></h1>
-  </div>
-
-
-  <!-- Code -->
-  <div class="row">
-    <div class="span4">
-      <h2>Code</h2>
-      <p>
-        <code>&lt;code&gt;</code>
-        <code>&lt;pre&gt;</code>
-      </p>
-      <p>Pimp your code in style with two simple tags. For even more awesomeness through javascript, drop in Google's code prettify library and you're set.</p>
-    </div>
-    <div class="span12">
-      <h3>Presenting code</h3>
-      <p>Code, blocks of or just snippets inline, can be displayed with style just by wrapping in the right tag. For blocks of code spanning multiple lines, use the <code>&lt;pre&gt;</code> element. For inline code, use the <code>&lt;code&gt;</code> element.</p>
-      <table class="bordered-table zebra-striped">
-        <thead>
-          <tr>
-            <th style="width: 190px;">Element</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>&lt;code&gt;</code></td>
-            <td>In a line of text like this, your wrapped code will look like this <code>&lt;html&gt;</code> element.</td>
-          </tr>
-          <tr>
-            <td><code>&lt;pre&gt;</code></td>
-            <td>
-<pre>&lt;div&gt;
-  &lt;h1&gt;Heading&lt;/h1&gt;
-  &lt;p&gt;Something right here...&lt;/p&gt;
-&lt;/div&gt;</pre>
-              <p><strong>Note:</strong> Be sure to keep code within <code>&lt;pre&gt;</code> tags as close to the left as possible; it will render all tabs.</p>
-            </td>
-          </tr>
-          <tr>
-            <td><code>&lt;pre class="prettyprint"&gt;</code></td>
-            <td>
-              <p>Using the google-code-prettify library, your blocks of code get a slightly different visual style and automatic syntax highlighting.</p>
-<pre class="prettyprint">&lt;div&gt;
-  &lt;h1&gt;Heading&lt;/h1&gt;
-  &lt;p&gt;Something right here...&lt;/p&gt;
-&lt;/div&gt;</pre>
-              <p><a href="http://code.google.com/p/google-code-prettify/">Download google-code-prettify</a> and view the readme for <a href="http://google-code-prettify.googlecode.com/svn/trunk/README.html">how to use</a>.</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div><!-- /row -->
-
-  <!-- Labels -->
-  <div class="row">
-    <div class="span4">
-      <h2>Inline labels</h2>
-      <p>
-        <code>&lt;span class="label"&gt;</code>
-      </p>
-      <p>Call attention to or flag any phrase in your body text.</p>
-    </div>
-    <div class="span12">
-      <h3>Label anything</h3>
-      <p>Ever needed one of those fancy <span class="label success">New!</span> or <span class="label important">Important</span> flags when writing code? Well, now you have them. Here's what's included by default:</p>
-      <table class="bordered-table zebra-striped">
-        <thead>
-          <tr>
-            <th style="width: 50%;">Label</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <code>&lt;span class="label"&gt;Default&lt;/span&gt;</code>
-            </td>
-            <td>
-              <span class="label">Default</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <code>&lt;span class="label success"&gt;New&lt;/span&gt;</code>
-            </td>
-            <td>
-              <span class="label success">New</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <code>&lt;span class="label warning"&gt;Warning&lt;/span&gt;</code>
-            </td>
-            <td>
-              <span class="label warning">Warning</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <code>&lt;span class="label important"&gt;Important&lt;/span&gt;</code>
-            </td>
-            <td>
-              <span class="label important">Important</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <code>&lt;span class="label notice"&gt;Notice&lt;/span&gt;</code>
-            </td>
-            <td>
-              <span class="label notice">Notice</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div><!-- /row -->
 
 </section>
 
@@ -356,6 +175,9 @@
 	<script src="fxTextAreaAutoResizer.js"></script>
 	<script>
 	$("#sample").fxTextAreaAutoResizer({});
+	$("#sample2").fxTextAreaAutoResizer({
+		minLine : 5
+	});
 	</script>
   </body>
 </html>
